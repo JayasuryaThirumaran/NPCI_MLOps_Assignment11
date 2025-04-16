@@ -38,3 +38,9 @@ Setting up GitLab CI/CD Pipeline
 4. Add DockerHub credentials as GitLab variables
 5. clone this gitlab project and add the given .gitlab-ci.yml and push project files
 6. Once pushed the pipline will be started, check it by visualizing pipeline.
+
+Note: for detailed instruction : [Gitlab_CICD](https://drive.google.com/file/d/1O6qxMLTI9XLvLHqDp2pUaXUBYD9TmTM1/view?usp=sharing)
+
+### Post-execution Checks
+- Visit your DockerHub account → verify bank-ml-model image is uploaded
+- Check runner logs to verify successful preprocessing, training, and predictions
