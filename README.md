@@ -6,11 +6,17 @@ In this assignment, you will build a complete machine learning pipeline that pre
 ### Project Structure
 
 ├─── dataset/
+
 ├  ├── data.csv                       # Raw input data
+
 ├── data_preprocessing.py         # Preprocesses data and saves outputs
+
 ├── train_model.py                # Trains model and prints evaluation metrics
+
 ├── predict.py                    # Loads model and predicts from new input
+
 ├── .gitlab-ci.yml                # GitLab pipeline config
+
 ├── preprocessed_data/            # Folder where processed data & encoders are stored
 
 ### ML Workflow
@@ -31,7 +37,7 @@ In this assignment, you will build a complete machine learning pipeline that pre
 - Loads model and encoders
 - Predicts from new input
 
-Setting up GitLab CI/CD Pipeline
+### Setting up GitLab CI/CD Pipeline
 
 1. Create blank GitLab Project
 2. Add a Self-hosted Runner via GitHub Codespace
@@ -42,5 +48,5 @@ Setting up GitLab CI/CD Pipeline
 Note: for detailed instruction : [Gitlab_CICD](https://drive.google.com/file/d/1O6qxMLTI9XLvLHqDp2pUaXUBYD9TmTM1/view?usp=sharing)
 
 ### Post-execution Checks
-- Visit your DockerHub account → verify bank-ml-model image is uploaded
+- Visit your DockerHub account → verify churn-model image is uploaded
 - Check runner logs to verify successful preprocessing, training, and predictions
