@@ -4,7 +4,7 @@ import os
 import joblib
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 
-def preprocess_data(input_csv='data.csv', output_dir='preprocessed_data'):
+def preprocess_data(input_csv='dataset/churn_modeling.csv', output_dir='preprocessed_data'):
     os.makedirs(output_dir, exist_ok=True)
 
     df = pd.read_csv(input_csv)

@@ -30,7 +30,7 @@ def train_model(preprocessed_dir='preprocessed_data'):
     print(f"Recall: {rec:.4f}")
 
     # Save model
-    joblib.dump(model, 'model.pkl')
+    joblib.dump(model, 'trained_model/model.pkl')
     print("Model saved as 'model.pkl'.")
 
 if __name__ == '__main__':

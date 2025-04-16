@@ -2,10 +2,10 @@ import joblib
 import numpy as np
 
 def predict(input_data):
-    model = joblib.load('model.pkl')
-    scaler = joblib.load('scaler.pkl')
-    le_geo = joblib.load('le_geo.pkl')
-    le_gender = joblib.load('le_gender.pkl')
+    model = joblib.load('trained_model/model.pkl')
+    scaler = joblib.load('preprocessed_data/scaler.pkl')
+    le_geo = joblib.load('preprocessed_data/le_geo.pkl')
+    le_gender = joblib.load('preprocessed_data/le_gender.pkl')
 
     # Sample input should be a dictionary
     data = input_data.copy()
