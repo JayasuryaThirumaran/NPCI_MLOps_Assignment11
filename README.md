@@ -22,16 +22,18 @@ To implement a automated workflow in GitLab-CI with the following jobs:
    |   ├── requirements.txt
    |   ├── test_requirements.txt
    |   └── api_requirements.txt
+   ├── tests/
+   |   └── test_prediction.py
    ├── trained_model/
    |   ├── __init__.py
    |   └── .gitignore
-   ├── tests/
-   |   └── test_prediction.py
    ├── data_preprocessing.py
    ├── train_model.py
    ├── predict.py
    ├── app.py
-   └── config-server/
+   ├── Dockerfile
+   ├── .gitignore
+   └── README.md
    ```
 
 
