@@ -16,6 +16,7 @@ To implement a automated workflow in GitLab-CI with the following jobs:
 
    ```
    root
+   ├── SubmissionImages/
    ├── dataset/
    |   └── churn_modeling.csv
    ├── requirements/
