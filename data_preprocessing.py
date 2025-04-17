@@ -1,37 +1,36 @@
-import pandas as pd
-import numpy as np
 import os
+import numpy as np
+import pandas as pd
 import joblib
 from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 
-def preprocess_data(input_csv='dataset/churn_modeling.csv', output_dir='preprocessed_data'):
-    os.makedirs(output_dir, exist_ok=True)
 
-    df = pd.read_csv(input_csv)
-    df = df.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1)
+# Load dataset as pandas dataframe
+df = pd.read_csv("dataset/churn_modeling.csv")
 
-    # Label encoding
-    le_geo = LabelEncoder()
-    le_gender = LabelEncoder()
-    df['Geography'] = le_geo.fit_transform(df['Geography'])
-    df['Gender'] = le_gender.fit_transform(df['Gender'])
 
-    # Features and target
-    X = df.drop('Exited', axis=1).values
-    y = df['Exited'].values
+# Define target variable and features
+X = df[["CreditScore", "Geography", "Gender", "Age", "Tenure", "Balance", "NumOfProducts", "HasCrCard", "IsActiveMember", "EstimatedSalary"]].copy()
+y = df[["Exited"]]
 
-    # Scaling
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
 
-    # Save preprocessed data
-    np.save(os.path.join(output_dir, 'X.npy'), X_scaled)
-    np.save(os.path.join(output_dir, 'y.npy'), y)
-    joblib.dump(scaler, os.path.join(output_dir, 'scaler.pkl'))
-    joblib.dump(le_geo, os.path.join(output_dir, 'le_geo.pkl'))
-    joblib.dump(le_gender, os.path.join(output_dir, 'le_gender.pkl'))
+# Handling category labels present in `Geography` and `Gender` columns
+# Get the distinct categories present in each categorical column
+# print(X['Geography'].unique())
+# print(X['Gender'].unique())
 
-    print(f"Data preprocessing complete. Files saved to '{output_dir}'.")
+# Create dictionaries to map categorical values to numberic labels. OR Use LabelEncoder
+geography_mapping = {'France': 0, 'Spain': 1, 'Germany': 2}
+gender_mapping = {'Female': 0, 'Male': 1}
 
-if __name__ == '__main__':
-    preprocess_data()
+# Map categorical values to numbers using respective dictionaries
+X['Geography'] = X['Geography'].map(geography_mapping)
+X['Gender'] = X['Gender'].map(gender_mapping)
+
+# Split data into training (80%) and test (20%) sets
+# Use random_state and stratify parameters
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=3, stratify=y)
+

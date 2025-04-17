@@ -1,37 +1,45 @@
-import numpy as np
 import joblib
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, precision_score, recall_score
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 
-def train_model(preprocessed_dir='preprocessed_data'):
-    # Load data
-    X = np.load(f'{preprocessed_dir}/X.npy')
-    y = np.load(f'{preprocessed_dir}/y.npy')
+from data_preprocessing import X_train, y_train, X_test, y_test
 
-    # Split
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42)
 
-    # Train
-    model = RandomForestClassifier(n_estimators=100, random_state=42)
-    model.fit(X_train, y_train)
-
-    # Predict
-    y_pred = model.predict(X_test)
-
-    # Metrics
+def evaluate_model(y_pred, y_test):
     acc = accuracy_score(y_test, y_pred)
-    prec = precision_score(y_test, y_pred)
-    rec = recall_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred)
+    recall = recall_score(y_test, y_pred)
 
-    print(f"Accuracy: {acc:.4f}")
-    print(f"Precision: {prec:.4f}")
-    print(f"Recall: {rec:.4f}")
+    print(f"Accuracy: {round(acc, 3)}")
+    print(f"F1 Score: {round(f1, 3)}")
+    print(f"Precision: {round(precision, 3)}")
+    print(f"Recall: {round(recall, 3)}")
 
-    # Save model
-    joblib.dump(model, 'trained_model/model.pkl')
-    print("Model saved as 'model.pkl'.")
 
-if __name__ == '__main__':
-    train_model()
+# Random Forest
+n_estimators = 150
+max_depth = 9
+max_features = 6
+random_state = 42
+
+rf_model = RandomForestClassifier(n_estimators = n_estimators,
+                                  max_depth = max_depth,
+                                  max_features = max_features,
+                                  random_state = random_state)
+
+rf_model.fit(X_train, y_train.values.ravel())
+
+print("Model trained successfully!")
+
+y_pred = rf_model.predict(X_test)
+
+evaluate_model(y_test, y_pred)
+
+# Save model
+try:
+    joblib.dump(rf_model, "trained_model/rf_model_customer_churn_pred.pkl")
+    print("Model saved successfully at path: trained_model/rf_model_customer_churn_pred.pkl")
+except Exception as e:
+    print("Failed to save model.", e)
+
